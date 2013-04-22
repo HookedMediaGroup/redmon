@@ -13,6 +13,8 @@ module Redmon
       :cache_control => 'public, max-age=3600'
     }
 
+    set :protection, :except => :frame_options
+
     if Redmon.config.secure
       use Rack::Auth::Basic do |username, password|
         [username, password] == Redmon.config.secure.split(':')
