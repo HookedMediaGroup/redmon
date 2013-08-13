@@ -1,11 +1,12 @@
+[![Build status - Travis-ci](https://secure.travis-ci.org/steelThread/redmon.png) ](http://travis-ci.org/steelThread/redmon)
+[![Code Climate](https://codeclimate.com/github/steelThread/redmon.png)](https://codeclimate.com/github/steelThread/redmon)
+[![Gem Version](https://badge.fury.io/rb/redmon.png)](http://badge.fury.io/rb/redmon)
+[![Coverage Status](https://coveralls.io/repos/steelThread/redmon/badge.png?branch=master)](https://coveralls.io/r/steelThread/redmon?branch=master)
 # Redmon
 
 Simple sinatra based dashbord for redis.  After seeing the [fnordmetric](https://github.com/paulasmuth/fnordmetric)
 project I was inspired to write this.  Some of the ideas there have be carried over here.
 
-[ ![Build status - Travis-ci](https://secure.travis-ci.org/steelThread/redmon.png) ](http://travis-ci.org/steelThread/redmon)
-
-[![Code Climate](https://codeclimate.com/badge.png)](https://codeclimate.com/github/steelThread/redmon)
 
 ----
 
@@ -73,16 +74,22 @@ Add to Gemfile:
 gem 'redmon', require: false
 ```
 
-Add to config/routes.rb:
+Mount redmon in config/routes.rb:
 
 ```ruby
-require 'redmon/app'
 mount Redmon::App => '/redmon'
 ```
 
-You can configure the Redmon using an initializer config/initializers/redmon.rb:
+Create a config/initializers/redmon.rb file:
 
 ```ruby
+require 'redmon/config'
+require 'redmon/redis'
+require 'redmon/app'
+
+#
+# Optional config overrides
+#
 Redmon.configure do |config|
   config.redis_url = 'redis://127.0.0.1:6379'
   config.namespace = 'redmon'
